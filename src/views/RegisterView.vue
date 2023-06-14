@@ -1,4 +1,26 @@
 <script setup>
+import { ref } from 'vue'
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+const form = ref({
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: ''
+})
+
+const handleRegister = async () => {
+  await axios.post('/register', {
+    name: form.value.name,
+    email: form.value.email,
+    password: form.value.password,
+    password_confirmation: form.value.password_confirmation
+  })
+
+  router.push("/")
+}
 
 </script>
 
@@ -9,17 +31,21 @@
   </div>
 
   <div class="mt-10 sm:mx-auto w-full">
-    <form class="space-y-6" action="#" method="POST">
+    <form class="space-y-6" action="#" method="POST" @submit.prevent="handleRegister">
       <div class="mt-2">
-        <input id="name" name="name" type="name" placeholder="Name" required class="block w-full rounded-md border-0 py-1.5 px-3  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <input id="name" name="name" type="name" v-model="form.name" placeholder="Name" required class="block w-full rounded-md border-0 py-1.5 px-3  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
       </div>
 
       <div class="mt-2">
-        <input id="email" name="email" type="email" placeholder="Email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 px-3  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <input id="email" type="email" placeholder="Email" v-model="form.email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 px-3  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
       </div>
 
       <div class="mt-2">
-        <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <input id="password" type="password" placeholder="Password" v-model="form.password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+      </div>
+
+      <div class="mt-2">
+        <input id="password-confiration" type="password" v-model="form.password_confirmation" placeholder="Confirm Password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
       </div>
 
       <div>
