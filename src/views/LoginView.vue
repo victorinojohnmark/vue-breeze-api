@@ -9,13 +9,6 @@ const form = ref({
   password: ''
 })
 
-const getToken = async () => {
-  await axios.get('/sanctum/csrf-cookie');
-}
-
-
-
-
 </script>
 
 <template>
@@ -27,11 +20,13 @@ const getToken = async () => {
   <div class="mt-10 sm:mx-auto w-full">
     <form class="space-y-6" action="#" method="POST" @submit.prevent="authStore.handleLogin(form)">
       <div class="mt-2">
-        <input id="email" name="email" v-model="form.email" type="email" placeholder="Email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 px-3  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <input id="email" name="email" v-model="form.email" type="email" placeholder="Email" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 px-3  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <p v-if="authStore.errors.email" class="mt-1 text-xs font-semibold text-red-400">{{ authStore.errors.email[0] }}</p>
       </div>
 
       <div class="mt-2">
-        <input id="password" name="password" v-model="form.password" type="password" placeholder="Password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <input id="password" name="password" v-model="form.password" type="password" placeholder="Password" autocomplete="current-password" class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <p v-if="authStore.errors.password" class="mt-1 text-xs font-semibold text-red-400">{{ authStore.errors.password[0] }}</p>
       </div>
 
       <div>
@@ -40,7 +35,7 @@ const getToken = async () => {
     </form>
 
     <p class="mt-10 text-center text-sm text-gray-500">
-      <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Forgot Password?</a>
+      <router-link :to="{ name: 'forgot-password' }" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Forgot Password?</router-link >
     </p>
 
     <p class="text-center text-sm text-gray-500">

@@ -9,7 +9,7 @@
     <div class="flex gap-x-12">
         <router-link :to="{name: 'home'}" class="text-sm font-semibold leading-6 text-gray-900">Home</router-link>
         <template v-if="!authStore.user">
-          <router-link :to="{name: 'login'}" class="text-sm font-semibold leading-6 text-gray-900">Login</router-link>
+          <router-link :to="{name: 'login'}" class="text-sm font-semibold leading-6 text-gray-900">Log in</router-link>
           <router-link :to="{name: 'register'}" class="text-sm font-semibold leading-6 text-gray-900">Register</router-link>
         </template>
         <template v-else>
