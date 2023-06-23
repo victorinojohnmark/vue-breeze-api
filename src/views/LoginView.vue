@@ -49,7 +49,7 @@ const handleLogin = async () => {
     </form>
 
     <p class="mt-10 text-center text-sm text-gray-500">
-      <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Forgot Password?</a>
+      <router-link :to="{name: 'forgotpassword'}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Forgot Password?</router-link>
     </p>
 
     <p class="text-center text-sm text-gray-500">
