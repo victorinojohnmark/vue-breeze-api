@@ -35,7 +35,7 @@ const form = ref({
     </form>
 
     <p class="mt-10 text-center text-sm text-gray-500">
-      <router-link :to="{ name: 'forgot-password' }" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Forgot Password?</router-link>
+      <router-link :to="{ name: 'forgotpassword' }" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Forgot Password?</router-link>
     </p>
 
     <p class="text-center text-sm text-gray-500">

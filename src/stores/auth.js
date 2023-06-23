@@ -4,11 +4,13 @@ import axios from "axios";
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         authUser: null,
-        authErrors: []
+        authErrors: [],
+        authStatus: null
     }),
     getters: {
         user: (state) => state.authUser,
-        errors: (state) => state.authErrors
+        errors: (state) => state.authErrors,
+        status: (state) => state.authStatus
     },
     actions: {
         async getToken() {
@@ -58,10 +60,39 @@ export const useAuthStore = defineStore('auth', {
             this.authUser = null
         },
         async handleForgotPassword(email) {
-            await axios.post('/forgot-password', {
-                email: email
-            })
+            this.authErrors = [];
+            this.getToken();
+            try {
+                const response = await axios.post('/forgot-password', {
+                    email: email
+                })
+
+                this.authStatus = response.data.status
+            } catch (error) {
+                if(error.response.status === 422) {
+                    this.authErrors = error.response.data.errors;
+                }
+            }
             
+            
+        },
+        async handleResetPassword(resetData) {
+            this.authErrors = [];
+
+            try {
+                const response = await axios.post('/reset-password', resetData);
+                // this.router.push("/");
+
+                this.authStatus = response.data.status
+            } catch (error) {
+                if(error.response.status === 422) {
+                    this.authErrors = error.response.data.errors;
+                }
+            }
+        },
+        resetErrorAndStatus() {
+            this.errors = null;
+            this.status = null;
         }
 
 
